@@ -8,9 +8,14 @@
 import UIKit
 
 class ViewController: UIViewController {
+    
+    private let blueColor = "primaryColor"
+    private let sunIcon = "sunIcon"
+    private var cityName = "Belo Horizonte"
+    private var temperature = "25°C"
 
     private lazy var backgroundView: UIImageView = {
-        let imageView = UIImageView(frame: .zero)
+        let imageView = UIImageView()
         imageView.image = UIImage(named: "background")
         imageView.contentMode = .scaleAspectFill
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -18,7 +23,7 @@ class ViewController: UIViewController {
     }()
     
     private lazy var headerView: UIView = {
-        let view = UIView(frame: .zero)
+        let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = .white
         view.layer.cornerRadius = 20
@@ -29,9 +34,9 @@ class ViewController: UIViewController {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 20)
-        label.text = "Belo Horizonte"
+        label.text = cityName
         label.textAlignment = .center
-        label.textColor = UIColor(named: "primaryColor")
+        label.textColor = UIColor(named: blueColor)
         return label
     }()
     
@@ -39,16 +44,16 @@ class ViewController: UIViewController {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 70, weight: .bold)
-        label.text = "25°C"
+        label.text = temperature
         label.textAlignment = .left
-        label.textColor = UIColor(named: "primaryColor")
+        label.textColor = UIColor(named: blueColor)
         return label
     }()
     
     private lazy var weatherIcon: UIImageView = {
        let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.image = UIImage(named: "sunIcon")
+        imageView.image = UIImage(named: sunIcon)
         imageView.contentMode = .scaleAspectFit
         return imageView
     }()
@@ -75,7 +80,6 @@ class ViewController: UIViewController {
     }
     
     private func setupView(){
-        
         
         setHierarchy()
         setConstraints()
