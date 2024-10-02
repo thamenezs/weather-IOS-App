@@ -10,9 +10,20 @@ import UIKit
 class ViewController: UIViewController {
     
     private let blueColor = "primaryColor"
+    private let contrastColor = "contrastColor"
+    private let softGray = "softGray"
+    
     private let sunIcon = "sunIcon"
+    
     private var cityName = "Belo Horizonte"
     private var temperature = "25°C"
+    
+    private let humidity = "Umidade"
+    private let humidityValue = "1000m"
+    private let wind = "Vento"
+    private let windValue = "100km/h"
+    
+    
 
     private lazy var backgroundView: UIImageView = {
         let imageView = UIImageView()
@@ -57,6 +68,68 @@ class ViewController: UIViewController {
         imageView.contentMode = .scaleAspectFit
         return imageView
     }()
+    
+    private lazy var humidityLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = humidity
+        label.font = UIFont.systemFont(ofSize: 12, weight: .semibold)
+        label.textColor = UIColor(named: contrastColor)
+        return label
+    }()
+    
+    private lazy var humidityValueLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = humidityValue
+        label.font = UIFont.systemFont(ofSize: 12, weight: .semibold)
+        label.textColor = UIColor(named: contrastColor)
+        return label
+    }()
+    
+    private lazy var humidityStackView: UIStackView = {
+       let stackView = UIStackView(arrangedSubviews: [humidityLabel, humidityValueLabel])
+        stackView.axis = .horizontal
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        return stackView
+    }()
+    
+    private lazy var windLabel: UILabel = {
+        let label = UILabel(frame: .zero)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = wind
+        label.font = UIFont.systemFont(ofSize: 12, weight: .semibold)
+        label.textColor = UIColor(named: contrastColor)
+        return label
+    }()
+    
+    private lazy var windValueLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = windValue
+        label.font = UIFont.systemFont(ofSize: 12, weight: .semibold)
+        label.textColor = UIColor(named: contrastColor)
+        return label
+    }()
+    
+    private lazy var windStackView: UIStackView = {
+       let stackView = UIStackView(arrangedSubviews: [windLabel, windValueLabel])
+        stackView.axis = .horizontal
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        return stackView
+    }()
+    
+    private lazy var statusStackView: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [humidityStackView, windStackView])
+        stackView.axis = .vertical
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.spacing = 3
+        stackView.backgroundColor = UIColor(named: softGray)
+        stackView.layer.cornerRadius = 10
+        stackView.isLayoutMarginsRelativeArrangement = true
+        stackView.directionalLayoutMargins = NSDirectionalEdgeInsets(top: 12, leading: 24, bottom: 12, trailing: 24)
+        return stackView
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -89,10 +162,12 @@ class ViewController: UIViewController {
     private func setHierarchy(){
         view.addSubview(backgroundView)
         view.addSubview(headerView)
+        view.addSubview(statusStackView)
         
         headerView.addSubview(cityLabel)
         headerView.addSubview(temperatureLabel)
         headerView.addSubview(weatherIcon)
+        
     }
     
     private func setConstraints(){
@@ -126,7 +201,11 @@ class ViewController: UIViewController {
             
         ])
         
-        
+        NSLayoutConstraint.activate([
+            statusStackView.topAnchor.constraint(equalTo: headerView.bottomAnchor, constant: 24),
+            statusStackView.widthAnchor.constraint(equalToConstant: 206),
+            statusStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+        ])
     }
     
     
